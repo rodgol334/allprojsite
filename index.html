@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
+
+    <!-- ============================================
+         WEBSITE TITLE - Change this to customize your site name
+         ============================================ -->
+    <title>Template</title>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -44,7 +49,9 @@
             100% { opacity: 1; transform: scale(1.1); }
         }
 
-        /* Top Bar */
+        /* ============================================
+           TOP BAR STYLES
+           ============================================ */
         .top-bar {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             height: 70px;
@@ -78,26 +85,122 @@
             z-index: 1;
         }
 
-        /* Left Sidebar */
+        /* ============================================
+           LEFT SIDEBAR STYLES
+           ============================================ */
         .left-sidebar {
-            width: 280px;
+            width: 300px;
             background: rgba(20, 20, 35, 0.8);
             backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             padding: 24px;
             flex-shrink: 0;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
-        .sidebar-list {
-            list-style: none;
-        }
-
-        .sidebar-list li {
-            padding: 12px 0;
-            color: #888;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .clone-link {
+            display: block;
+            color: #a855f7;
             font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 12px 16px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .clone-link:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .sidebar-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .clone-list {
+            list-style: none;
+            flex: 1;
+        }
+
+        .clone-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            background: rgba(30, 30, 50, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .clone-item:hover {
+            background: rgba(40, 40, 60, 0.8);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .clone-item-name {
+            font-size: 13px;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        .clone-item-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .badge-online {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .badge-requests {
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+        }
+
+        .clone-empty {
+            color: #888;
+            font-size: 14px;
+            text-align: center;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+
+        .left-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .left-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .left-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 3px;
         }
 
         /* Right Content Area */
@@ -418,9 +521,13 @@
     </style>
 </head>
 <body>
-    <!-- Cloak Overlay - shown on first visit -->
+    <!-- ============================================
+         CLOAK OVERLAY
+         Shows on first visit, lets user hide URL in about:blank
+         ============================================ -->
     <div class="cloak-overlay" id="cloakOverlay">
-        <div class="cloak-title">GAMES</div>
+        <!-- CHANGE THIS: Update the title shown in cloak overlay -->
+        <div class="cloak-title">TEMPLATE</div>
         <div class="cloak-subtitle">Choose how to open the site</div>
         <div class="cloak-buttons">
             <button class="cloak-btn cloak-btn-primary" id="cloakBtn">Open in Hidden Tab</button>
@@ -430,15 +537,33 @@
 
     <div class="bg-gradient"></div>
 
-    <!-- Main Browse View -->
+    <!-- ============================================
+         TOP BAR
+         CHANGE THIS: Update the website name below
+         ============================================ -->
     <div class="top-bar">
-        <div class="top-bar-title">GAMES</div>
+        <div class="top-bar-title">TEMPLATE</div>
     </div>
 
     <div class="main-content">
+        <!-- ============================================
+             LEFT SIDEBAR
+             Contains: Clone repo link + list of cloned websites
+             ============================================ -->
         <div class="left-sidebar">
-            <ul class="sidebar-list">
-                <!-- Left sidebar items go here -->
+            <!-- ============================================
+                 CLONE REPO LINK
+                 CHANGE THIS: Update href to your GitHub repo URL
+                 ============================================ -->
+            <a href="" class="clone-link" target="_blank" id="cloneRepoLink">
+                Website ready to clone!
+            </a>
+
+            <div class="sidebar-section-title">Cloned Websites</div>
+
+            <!-- Clone list - populated dynamically from server -->
+            <ul class="clone-list" id="cloneList">
+                <li class="clone-empty">No current clones :(<br><br>Be the first!</li>
             </ul>
         </div>
 
@@ -476,7 +601,25 @@
     </div>
 
     <script>
-        // List of games (folder names in /games/)
+        // ============================================
+        // CONFIGURATION - CHANGE THESE VALUES
+        // ============================================
+
+        // CHANGE THIS: Your GitHub repository URL for cloning
+        const CLONE_REPO_URL = ''; // e.g., 'https://github.com/username/repo'
+
+        // CHANGE THIS: Your tracking server IP/URL
+        // This server receives clone registrations and returns approved clone list
+        const TRACKING_SERVER_URL = ''; // e.g., 'https://your-server.com' or 'http://123.456.789.0:5000'
+
+        // CHANGE THIS: The original website URL (this site's URL when deployed)
+        const ORIGINAL_SITE_URL = ''; // e.g., 'https://original-games-site.com'
+
+        // ============================================
+        // GAMES LIST
+        // Add or remove games from this array
+        // Each entry is a folder name in the /games/ directory
+        // ============================================
         const games = [
             '10-minutes-till-dawn',
             '1v1-lol',
@@ -595,6 +738,9 @@
             'yohoho'
         ];
 
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
         const searchInput = document.getElementById('searchInput');
         const resultsContainer = document.getElementById('resultsContainer');
         const resultsCount = document.getElementById('resultsCount');
@@ -602,6 +748,112 @@
         const gameTitle = document.getElementById('gameTitle');
         const gameIframe = document.getElementById('gameIframe');
         const backButton = document.getElementById('backButton');
+        const cloneList = document.getElementById('cloneList');
+        const cloneRepoLink = document.getElementById('cloneRepoLink');
+
+        // Set the clone repo link
+        if (CLONE_REPO_URL) {
+            cloneRepoLink.href = CLONE_REPO_URL;
+        }
+
+        // ============================================
+        // CLONE TRACKING SYSTEM
+        // ============================================
+
+        // Register this site with the tracking server on page load
+        async function registerWithServer() {
+            if (!TRACKING_SERVER_URL) {
+                console.log('No tracking server configured');
+                return;
+            }
+
+            try {
+                // Send registration request with this site's URL
+                // The server will use request headers/plugins to determine visitor IP
+                const response = await fetch(`${TRACKING_SERVER_URL}/api/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: window.location.origin // The URL of this clone
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Registered with tracking server');
+                }
+            } catch (error) {
+                console.log('Could not reach tracking server:', error.message);
+            }
+        }
+
+        // Fetch the list of approved cloned websites from the server
+        async function fetchCloneList() {
+            if (!TRACKING_SERVER_URL) {
+                // No server configured, show empty state
+                renderCloneList([]);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${TRACKING_SERVER_URL}/api/clones`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Expected format: { clones: [{ url: '...', requests: 123 }, ...] }
+                    renderCloneList(data.clones || []);
+                } else {
+                    renderCloneList([]);
+                }
+            } catch (error) {
+                console.log('Could not fetch clone list:', error.message);
+                renderCloneList([]);
+            }
+        }
+
+        // Render the clone list in the sidebar
+        function renderCloneList(clones) {
+            // Filter out original site to check if there are actual clones
+            const nonOriginalClones = clones.filter(clone => clone.url !== ORIGINAL_SITE_URL && !clone.is_original);
+
+            if (nonOriginalClones.length === 0) {
+                // No clones (excluding original) - show encouraging message
+                cloneList.innerHTML = '<li class="clone-empty">No current clones :(<br><br>Be the first!</li>';
+                return;
+            }
+
+            // Sort by request count (highest first)
+            clones.sort((a, b) => (b.requests || 0) - (a.requests || 0));
+
+            cloneList.innerHTML = clones.map((clone) => {
+                // Extract display name from URL
+                let displayName;
+                try {
+                    const url = new URL(clone.url);
+                    displayName = url.hostname;
+                } catch {
+                    displayName = clone.url;
+                }
+
+                // Mark the original site
+                const isOriginal = clone.url === ORIGINAL_SITE_URL || clone.is_original;
+                const badge = isOriginal
+                    ? '<span class="clone-item-badge badge-online">Original</span>'
+                    : `<span class="clone-item-badge badge-requests">${clone.requests || 0}</span>`;
+
+                return `
+                    <li class="clone-item" onclick="window.open('${clone.url}', '_blank')">
+                        <span class="clone-item-name">${isOriginal ? '⭐ ' : ''}${displayName}</span>
+                        ${badge}
+                    </li>
+                `;
+            }).join('');
+        }
+
+        // ============================================
+        // GAME FUNCTIONS
+        // ============================================
 
         function formatGameName(name) {
             return name.replace(/-/g, ' ').replace(/_/g, ' ');
@@ -653,6 +905,10 @@
             gameIframe.src = '';
         }
 
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
         searchInput.addEventListener('input', (e) => {
             filterGames(e.target.value);
         });
@@ -666,10 +922,21 @@
             }
         });
 
-        // Initial render
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        // Render games
         renderGames(games);
 
-        // Cloak functionality
+        // Register with tracking server and fetch clone list
+        registerWithServer();
+        fetchCloneList();
+
+        // ============================================
+        // CLOAK FUNCTIONALITY
+        // Opens site in about:blank tab to hide URL
+        // ============================================
         const cloakOverlay = document.getElementById('cloakOverlay');
         const cloakBtn = document.getElementById('cloakBtn');
         const normalBtn = document.getElementById('normalBtn');
