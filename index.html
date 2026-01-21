@@ -318,6 +318,79 @@
             width: 100%;
             height: calc(100% - 56px);
             border: none;
+            overflow: auto;
+        }
+
+        /* Cloak overlay */
+        .cloak-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.98);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .cloak-overlay.hidden {
+            display: none;
+        }
+
+        .cloak-title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 50%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cloak-subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .cloak-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .cloak-btn {
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', Arial, sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .cloak-btn-primary {
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            color: white;
+        }
+
+        .cloak-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .cloak-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cloak-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Responsive */
@@ -345,6 +418,16 @@
     </style>
 </head>
 <body>
+    <!-- Cloak Overlay - shown on first visit -->
+    <div class="cloak-overlay" id="cloakOverlay">
+        <div class="cloak-title">GAMES</div>
+        <div class="cloak-subtitle">Choose how to open the site</div>
+        <div class="cloak-buttons">
+            <button class="cloak-btn cloak-btn-primary" id="cloakBtn">Open in Hidden Tab</button>
+            <button class="cloak-btn cloak-btn-secondary" id="normalBtn">Continue Here</button>
+        </div>
+    </div>
+
     <div class="bg-gradient"></div>
 
     <!-- Main Browse View -->
@@ -389,7 +472,7 @@
             <span class="game-title" id="gameTitle">Game</span>
             <button class="back-button" id="backButton">Back to Games</button>
         </div>
-        <iframe class="game-iframe" id="gameIframe"></iframe>
+        <iframe class="game-iframe" id="gameIframe" scrolling="yes" allowfullscreen></iframe>
     </div>
 
     <script>
@@ -585,6 +668,51 @@
 
         // Initial render
         renderGames(games);
+
+        // Cloak functionality
+        const cloakOverlay = document.getElementById('cloakOverlay');
+        const cloakBtn = document.getElementById('cloakBtn');
+        const normalBtn = document.getElementById('normalBtn');
+
+        // Check if already cloaked (opened via about:blank)
+        if (window.name === 'cloaked' || sessionStorage.getItem('cloaked')) {
+            cloakOverlay.classList.add('hidden');
+        }
+
+        cloakBtn.addEventListener('click', () => {
+            // Open site in about:blank tab
+            const newTab = window.open('about:blank', '_blank');
+            if (newTab) {
+                newTab.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Google</title>
+                        <link rel="icon" href="https://www.google.com/favicon.ico">
+                        <style>
+                            body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+                            iframe { width: 100%; height: 100%; border: none; }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${window.location.href}" name="cloaked"></iframe>
+                    </body>
+                    </html>
+                `);
+                newTab.document.close();
+                // Close original tab
+                window.close();
+                // If window.close() doesn't work (not opened by script), redirect to Google
+                setTimeout(() => {
+                    window.location.href = 'https://www.google.com';
+                }, 100);
+            }
+        });
+
+        normalBtn.addEventListener('click', () => {
+            sessionStorage.setItem('cloaked', 'true');
+            cloakOverlay.classList.add('hidden');
+        });
     </script>
 </body>
 </html>
