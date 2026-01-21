@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,30 +14,59 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #0a0a0f;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            color: #e0e0e0;
+        }
+
+        /* Animated background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(120, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 150, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: gradientShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
         }
 
         /* Top Bar */
         .top-bar {
-            background-color: #4a4a4a;
-            height: 60px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            height: 70px;
             width: 100%;
             display: flex;
             align-items: center;
-            padding: 0 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 0 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
             flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .top-bar-title {
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 50%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
         }
 
         /* Main Layout */
@@ -43,14 +74,17 @@
             display: flex;
             flex: 1;
             overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
 
         /* Left Sidebar */
         .left-sidebar {
-            width: 250px;
-            background-color: #fff;
-            border-right: 1px solid #e0e0e0;
-            padding: 20px;
+            width: 280px;
+            background: rgba(20, 20, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px;
             flex-shrink: 0;
             overflow-y: auto;
         }
@@ -60,9 +94,10 @@
         }
 
         .sidebar-list li {
-            padding: 10px 0;
-            color: #666;
-            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            color: #888;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
         }
 
         /* Right Content Area */
@@ -71,62 +106,155 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background: rgba(15, 15, 25, 0.6);
         }
 
         /* Search Bar */
         .search-container {
-            padding: 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 24px;
+            background: rgba(20, 20, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             flex-shrink: 0;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
         }
 
         .search-input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 16px 20px 16px 50px;
             font-size: 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            font-family: 'Inter', Arial, sans-serif;
+            background: rgba(30, 30, 50, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             outline: none;
-            transition: border-color 0.3s ease;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: #666;
         }
 
         .search-input:focus {
-            border-color: #4a4a4a;
+            border-color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+
+        .results-count {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #666;
         }
 
         /* Results Area */
         .results-container {
             flex: 1;
             overflow-y: auto;
-            padding: 10px 20px;
+            padding: 16px 24px;
+        }
+
+        .results-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .results-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .results-container::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 4px;
+        }
+
+        .results-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(168, 85, 247, 0.5);
         }
 
         .game-button {
-            display: block;
+            display: flex;
+            align-items: center;
             width: 100%;
-            padding: 16px 20px;
-            margin-bottom: 8px;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 18px 24px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.9) 0%, rgba(40, 40, 60, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
             text-align: left;
             font-size: 16px;
-            color: #333;
+            font-weight: 500;
+            color: #e0e0e0;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #00d4ff, #a855f7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .game-button:hover {
-            background-color: #4a4a4a;
-            color: white;
-            border-color: #4a4a4a;
+            background: linear-gradient(135deg, rgba(50, 50, 80, 0.95) 0%, rgba(60, 60, 90, 0.95) 100%);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(168, 85, 247, 0.1);
+        }
+
+        .game-button:hover::before {
+            opacity: 1;
+        }
+
+        .game-button:active {
+            transform: translateX(8px) scale(0.98);
+        }
+
+        .game-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            opacity: 0.6;
+        }
+
+        .play-arrow {
+            margin-left: auto;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: #a855f7;
+        }
+
+        .game-button:hover .play-arrow {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .no-results {
             color: #666;
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
+            font-size: 16px;
         }
 
         /* Game View (iframe) */
@@ -139,6 +267,12 @@
             height: 100%;
             background-color: #000;
             z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .game-view.active {
@@ -146,36 +280,43 @@
         }
 
         .game-header {
-            height: 50px;
-            background-color: #4a4a4a;
+            height: 56px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .game-title {
             color: white;
             font-size: 16px;
+            font-weight: 600;
+            text-transform: capitalize;
         }
 
         .back-button {
-            background-color: #666;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 500;
+            font-family: 'Inter', Arial, sans-serif;
+            transition: all 0.3s ease;
         }
 
         .back-button:hover {
-            background-color: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
         }
 
         .game-iframe {
             width: 100%;
-            height: calc(100% - 50px);
+            height: calc(100% - 56px);
             border: none;
         }
 
@@ -184,13 +325,31 @@
             .left-sidebar {
                 display: none;
             }
+
+            .top-bar {
+                padding: 0 20px;
+            }
+
+            .search-container {
+                padding: 16px;
+            }
+
+            .results-container {
+                padding: 12px 16px;
+            }
+
+            .game-button {
+                padding: 14px 18px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="bg-gradient"></div>
+
     <!-- Main Browse View -->
     <div class="top-bar">
-        <div class="top-bar-title">Games</div>
+        <div class="top-bar-title">GAMES</div>
     </div>
 
     <div class="main-content">
@@ -202,13 +361,20 @@
 
         <div class="right-content">
             <div class="search-container">
-                <input
-                    type="text"
-                    class="search-input"
-                    id="searchInput"
-                    placeholder="Search games..."
-                    autocomplete="off"
-                >
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="searchInput"
+                        placeholder="Search games..."
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="results-count" id="resultsCount"></div>
             </div>
 
             <div class="results-container" id="resultsContainer">
@@ -245,18 +411,23 @@
             'basketball-stars',
             'basket-random',
             'bit-life',
+            'bit-planes',
             'boxing-random',
             'brawl-stars-project-laser',
             'breaklock',
             'chrome-dino',
             'clicker-heroes',
+            'clone-armies',
             'conways-game-of-life',
             'cookie-clicker',
             'core-ball',
+            'crazy-chicken-3d',
+            'crazy-kitty-3d',
             'crossy-road',
             'cut-the-rope',
             'doge-miner',
             'doodle-jump',
+            'doom',
             'drift-boss',
             'drive-mad',
             'drive-mad-s',
@@ -278,17 +449,20 @@
             'gunspin',
             'hextris',
             'idle-breakout',
+            'idle-dice',
             'incremancer',
             'maptroid',
             'mario-game',
             'monkey-mart',
             'motox3m',
+            'moto-x3m-pool-party',
             'n-gon',
             'n-step-steve-part-2',
             'ovo',
             'particle-clicker',
             'pcraft',
             'planet-life',
+            'polytrack',
             'progress-knight-quest',
             'progress-knight-reborn',
             'pull-of-war',
@@ -300,6 +474,8 @@
             'rocket-league-2d',
             'rooftop-snipers',
             'rookie-bowman',
+            'run',
+            'run-2',
             'run-3',
             'run-3-beta',
             'sandspiel',
@@ -307,10 +483,12 @@
             'shadow-fight',
             'slice-master',
             'slope',
+            'slope-plus',
             'smart-ball',
             'smash-karts',
             'soccer-random',
             'stickman-hook',
+            'subway-surfers',
             'subway-surfers-ny',
             'temple-run-2',
             'the-final-earth',
@@ -320,6 +498,7 @@
             'tiny-fishing',
             'tunnel-rush',
             'two-ball-3d',
+            'undertale-yellow',
             'vex-3',
             'vex-4',
             'vex-5',
@@ -328,12 +507,14 @@
             'volley-random',
             'web-osu',
             'where-is-the-water',
+            'worldbox',
             'x-trench-run',
             'yohoho'
         ];
 
         const searchInput = document.getElementById('searchInput');
         const resultsContainer = document.getElementById('resultsContainer');
+        const resultsCount = document.getElementById('resultsCount');
         const gameView = document.getElementById('gameView');
         const gameTitle = document.getElementById('gameTitle');
         const gameIframe = document.getElementById('gameIframe');
@@ -346,12 +527,19 @@
         function renderGames(gamesList) {
             if (gamesList.length === 0) {
                 resultsContainer.innerHTML = '<div class="no-results">No games found</div>';
+                resultsCount.textContent = '';
                 return;
             }
 
+            resultsCount.textContent = `${gamesList.length} game${gamesList.length !== 1 ? 's' : ''} available`;
+
             resultsContainer.innerHTML = gamesList.map(game => `
                 <button class="game-button" data-game="${game}">
+                    <svg class="game-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
                     ${formatGameName(game)}
+                    <span class="play-arrow">Play</span>
                 </button>
             `).join('');
 
