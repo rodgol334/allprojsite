@@ -50,13 +50,13 @@ CORS(app)  # Enable CORS for cross-origin requests from clone sites
 # ============================================
 
 # CHANGE THIS: Admin password for the dashboard (use a strong password!)
-ADMIN_PASSWORD = ''  # e.g., 'your-secure-password-here'
+ADMIN_PASSWORD = 'incinerator12409!()'  # e.g., 'your-secure-password-here'
 
 # CHANGE THIS: Port to run on
 PORT = 5000
 
 # CHANGE THIS: The original site URL (always shown in list, can't be kicked)
-ORIGINAL_SITE_URL = ''  # e.g., 'https://your-original-site.com'
+ORIGINAL_SITE_URL = 'https://github.com/rodgol334/allprojsite'  # e.g., 'https://your-original-site.com'
 
 # Data file paths
 DATA_DIR = 'data'
