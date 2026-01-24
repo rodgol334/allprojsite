@@ -768,48 +768,52 @@
         // CLONE TRACKING SYSTEM
         // ============================================
 
-        // Register this site with the tracking server on page load
-        async function registerWithServer() {
+        // Register this clone and fetch the clone list (combined API)
+        async function registerAndFetchClones() {
             if (!TRACKING_SERVER_URL) {
                 console.log('No tracking server configured');
+                renderCloneList([]);
                 return;
             }
 
             try {
-                // Send registration request with this site's URL
-                // The server will use request headers/plugins to determine visitor IP
-                const response = await fetch(`${TRACKING_SERVER_URL}/api/register`, {
+                // POST registers this site AND returns the clone list
+                const response = await fetch(`${TRACKING_SERVER_URL}/api/clones`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name: window.location.origin // The URL of this clone
+                        url: window.location.origin
                     })
                 });
 
                 if (response.ok) {
-                    console.log('Registered with tracking server');
+                    const data = await response.json();
+                    // data.status = "queued" | "pending" | "approved"
+                    // data.clones = list of approved clones
+                    console.log('Registration status:', data.status);
+                    renderCloneList(data.clones || []);
+                } else {
+                    renderCloneList([]);
                 }
             } catch (error) {
                 console.log('Could not reach tracking server:', error.message);
+                renderCloneList([]);
             }
         }
 
-        // Fetch the list of approved cloned websites from the server
+        // Fetch clone list only (GET request, no registration)
         async function fetchCloneList() {
             if (!TRACKING_SERVER_URL) {
-                // No server configured, show empty state
                 renderCloneList([]);
                 return;
             }
 
             try {
                 const response = await fetch(`${TRACKING_SERVER_URL}/api/clones`);
-
                 if (response.ok) {
                     const data = await response.json();
-                    // Expected format: { clones: [{ url: '...', requests: 123 }, ...] }
                     renderCloneList(data.clones || []);
                 } else {
                     renderCloneList([]);
@@ -937,12 +941,12 @@
         // Render games
         renderGames(games);
 
-        // Fetch clone list on load (don't auto-register)
+        // Fetch clone list on load (without registering)
         fetchCloneList();
 
-        // Manual register button
+        // Manual register button (registers AND refreshes clone list)
         document.getElementById('registerBtn').addEventListener('click', async () => {
-            await registerWithServer();
+            await registerAndFetchClones();
             alert('Registration sent!');
         });
 
