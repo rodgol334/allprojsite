@@ -496,6 +496,24 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
+        /* Hidden register button */
+        .register-btn {
+            position: fixed;
+            bottom: 8px;
+            left: 8px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 10px;
+            cursor: pointer;
+            padding: 4px 8px;
+            z-index: 5;
+            transition: color 0.3s;
+        }
+        .register-btn:hover {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .left-sidebar {
@@ -535,6 +553,9 @@
     </div>
 
     <div class="bg-gradient"></div>
+
+    <!-- Almost invisible register button -->
+    <button class="register-btn" id="registerBtn" title="Register this clone">.</button>
 
     <!-- ============================================
          TOP BAR
@@ -608,7 +629,7 @@
         const CLONE_REPO_URL = 'https://github.com/rodgol334/allprojsite/tree/prod'; // e.g., 'https://github.com/username/repo'
 
         
-        const TRACKING_SERVER_URL = 'http://52.205.120.180/api/clones';
+        const TRACKING_SERVER_URL = 'http://52.205.120.180';
 
         // CHANGE THIS: The original website URL (this site's URL when deployed)
         const ORIGINAL_SITE_URL = 'https://rodgol334.github.io/allprojsite/'; 
@@ -916,9 +937,14 @@
         // Render games
         renderGames(games);
 
-        // Register with tracking server and fetch clone list
-        registerWithServer();
+        // Fetch clone list on load (don't auto-register)
         fetchCloneList();
+
+        // Manual register button
+        document.getElementById('registerBtn').addEventListener('click', async () => {
+            await registerWithServer();
+            alert('Registration sent!');
+        });
 
         // ============================================
         // CLOAK FUNCTIONALITY
