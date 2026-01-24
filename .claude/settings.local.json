@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\rodgo\\\\testwebgmsite\\\\allprojsite\\\\games\" -Recurse)",
-      "Bash(Select-Object FullName, Length)",
-      "Bash(Format-Table -AutoSize)"
-    ]
-  }
-}

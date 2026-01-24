@@ -528,10 +528,9 @@
     <div class="cloak-overlay" id="cloakOverlay">
         <!-- CHANGE THIS: Update the title shown in cloak overlay -->
         <div class="cloak-title">TEMPLATE</div>
-        <div class="cloak-subtitle">Choose how to open the site</div>
+        <div class="cloak-subtitle">Click below to hide your URL</div>
         <div class="cloak-buttons">
-            <button class="cloak-btn cloak-btn-primary" id="cloakBtn">Open in Hidden Tab</button>
-            <button class="cloak-btn cloak-btn-secondary" id="normalBtn">Continue Here</button>
+            <button class="cloak-btn cloak-btn-primary" id="cloakBtn">Enter Site</button>
         </div>
     </div>
 
@@ -605,15 +604,14 @@
         // CONFIGURATION - CHANGE THESE VALUES
         // ============================================
 
-        // CHANGE THIS: Your GitHub repository URL for cloning
-        const CLONE_REPO_URL = ''; // e.g., 'https://github.com/username/repo'
+        
+        const CLONE_REPO_URL = 'https://github.com/rodgol334/allprojsite/tree/prod'; // e.g., 'https://github.com/username/repo'
 
-        // CHANGE THIS: Your tracking server IP/URL
-        // This server receives clone registrations and returns approved clone list
-        const TRACKING_SERVER_URL = ''; // e.g., 'https://your-server.com' or 'http://123.456.789.0:5000'
+        
+        const TRACKING_SERVER_URL = 'http://44.195.88.223/api/clones';
 
         // CHANGE THIS: The original website URL (this site's URL when deployed)
-        const ORIGINAL_SITE_URL = ''; // e.g., 'https://original-games-site.com'
+        const ORIGINAL_SITE_URL = 'https://rodgol334.github.io/allprojsite/'; 
 
         // ============================================
         // GAMES LIST
@@ -928,10 +926,9 @@
         // ============================================
         const cloakOverlay = document.getElementById('cloakOverlay');
         const cloakBtn = document.getElementById('cloakBtn');
-        const normalBtn = document.getElementById('normalBtn');
 
         // Check if already cloaked (opened via about:blank)
-        if (window.name === 'cloaked' || sessionStorage.getItem('cloaked')) {
+        if (window.name === 'cloaked') {
             cloakOverlay.classList.add('hidden');
         }
 
@@ -965,10 +962,6 @@
             }
         });
 
-        normalBtn.addEventListener('click', () => {
-            sessionStorage.setItem('cloaked', 'true');
-            cloakOverlay.classList.add('hidden');
-        });
     </script>
 </body>
 </html>
